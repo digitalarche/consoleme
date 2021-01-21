@@ -9,7 +9,6 @@ import {
   Message,
   Segment,
 } from "semantic-ui-react";
-import { sendRequestCommon } from "../../helpers/utils";
 
 class CommentsFeedBlockComponent extends Component {
   constructor(props) {
@@ -45,7 +44,7 @@ class CommentsFeedBlockComponent extends Component {
             comment_text: commentText,
           },
         };
-        const response = await sendRequestCommon(
+        const response = await this.props.sendRequestCommon(
           request,
           "/api/v2/requests/" + requestID,
           "PUT"

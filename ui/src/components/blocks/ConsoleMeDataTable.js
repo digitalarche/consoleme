@@ -20,7 +20,6 @@ import ReactMarkdown from "react-markdown";
 import SemanticDatepicker from "react-semantic-ui-datepickers";
 import "react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css";
 import { Link, Redirect, BrowserRouter } from "react-router-dom";
-import { sendRequestCommon } from "../../helpers/utils";
 
 const expandNestedJson = (data) => {
   Object.keys(data).forEach((key) => {
@@ -88,7 +87,7 @@ class ConsoleMeDataTable extends Component {
         isLoading: true,
       },
       async () => {
-        let data = await sendRequestCommon(
+        let data = await this.props.sendRequestCommon(
           {
             limit: tableConfig.totalRows,
           },
@@ -420,7 +419,7 @@ class ConsoleMeDataTable extends Component {
 
   async filterColumnServerSide(event, filters) {
     const { tableConfig } = this.state;
-    let filteredData = await sendRequestCommon(
+    let filteredData = await this.props.sendRequestCommon(
       { filters },
       tableConfig.dataEndpoint
     );

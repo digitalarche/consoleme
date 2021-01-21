@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useReducer } from "react";
 import { useParams } from "react-router-dom";
 import { initialState, reducer } from "./policyReducer";
-import { getResourceEndpoint, sendRequestCommon } from "../../../helpers/utils";
+import { getResourceEndpoint } from "../../../helpers/utils";
+import { useAuth } from "../../../auth/AuthProviderDefault";
 
 const PolicyContext = React.createContext(initialState);
 
 export const usePolicyContext = () => useContext(PolicyContext);
 
 export const PolicyProvider = ({ children }) => {
+  const { sendRequestCommon, sendRequestV2 } = useAuth();
   const [state, dispatch] = useReducer(reducer, initialState);
   const { accountID, serviceType, region, resourceName } = useParams();
 
@@ -96,6 +98,7 @@ export const PolicyProvider = ({ children }) => {
         setTogglePolicyModal,
         setModalWithAdminAutoApprove,
         handleDeleteRole,
+        sendRequestV2,
       }}
     >
       {children}

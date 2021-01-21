@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Header } from "semantic-ui-react";
 import ConsoleMeDataTable from "../blocks/ConsoleMeDataTable";
-import { sendRequestCommon } from "../../helpers/utils";
 import ReactMarkdown from "react-markdown";
+import { useAuth } from "../../auth/AuthProviderDefault";
 
 const SelectRoles = () => {
   const [pageConfig, setPageConfig] = useState(null);
+  const auth = useAuth();
+  const { sendRequestCommon } = auth;
 
   useEffect(() => {
     (async () => {
@@ -16,7 +18,7 @@ const SelectRoles = () => {
       );
       setPageConfig(data);
     })();
-  }, []);
+  }, [sendRequestCommon]);
 
   if (!pageConfig) {
     return null;
@@ -35,7 +37,7 @@ const SelectRoles = () => {
           />
         </Header.Subheader>
       </Header>
-      <ConsoleMeDataTable config={tableConfig} />
+      <ConsoleMeDataTable config={tableConfig} {...auth} />
     </>
   );
 };

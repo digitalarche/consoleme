@@ -5,7 +5,6 @@ import * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
 import {
   getMonacoCompletions,
   getMonacoTriggerCharacters,
-  sendRequestCommon,
 } from "../../helpers/utils";
 import { usePolicyContext } from "./hooks/PolicyProvider";
 import { useAuth } from "../../auth/AuthProviderDefault";
@@ -178,7 +177,7 @@ export const PolicyMonacoEditor = ({
 };
 
 export const NewPolicyMonacoEditor = ({ addPolicy, setIsNewPolicy }) => {
-  const { user } = useAuth();
+  const { user, sendRequestCommon } = useAuth();
   const { setModalWithAdminAutoApprove } = usePolicyContext();
 
   const [newPolicyName, setNewPolicyName] = useState("");

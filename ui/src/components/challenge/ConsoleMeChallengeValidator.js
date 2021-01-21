@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { sendRequestCommon } from "../../helpers/utils";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../../auth/AuthProviderDefault";
 
 const ConsoleMeChallengeValidator = () => {
   const { challengeToken } = useParams();
   const [result, setResult] = useState("");
+  const { sendRequestCommon } = useAuth();
+
   useEffect(() => {
     (async () => {
       setResult(
@@ -15,7 +17,7 @@ const ConsoleMeChallengeValidator = () => {
         )
       );
     })();
-  }, [challengeToken]);
+  }, [challengeToken, sendRequestCommon]);
 
   return <p>{result && result.message}</p>;
 };
